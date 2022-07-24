@@ -1,6 +1,11 @@
 <div class="container mt-5 w-75 bg-color p-5">
   <h1>Bienvenidx {{email}} </h1>
+
   <form action="/logout" method="get">
-    <button class="btn btn-primary">CERRAR SESION</button>
+    <button class="btn btn-secondary">CERRAR SESION</button>
   </form>
+  <button class="btn btn-info" onclick="location.href='/info'">Ver info del
+    Process Object</button>
+  <button class="btn btn-success" onclick="location.href='/api/randoms'">Ver
+    numeros randoms</button>
 </div>
