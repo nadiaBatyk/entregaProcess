@@ -4,6 +4,7 @@ const rutasProducto = require("./routes/productosRutas");
 const rutasTest = require("./routes/productosTestRutas");
 const loginRutas = require("./routes/loginRutas");
 const infoRutas = require("./routes/infoRutas");
+const randomsRutas = require("./routes/randomsRutas");
 const { engine } = require("express-handlebars");
 const { Server: ioServer } = require("socket.io");
 const http = require("http");
@@ -118,6 +119,7 @@ socketServer.on("connection", (socket) => {
 app.use("/productos", rutasProducto);
 app.use("/api/productos-test", rutasTest);
 app.use("/info", infoRutas);
+app.use("/api/randoms", randomsRutas);
 app.use("/", loginRutas);
 //PUERTO
 

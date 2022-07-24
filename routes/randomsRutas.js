@@ -1,6 +1,6 @@
 const Router = require("express");
 const router = Router();
-const parseArgs = require("minimist");
+const { fork } = require("child_process");
 
 function isAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -11,18 +11,16 @@ function isAuth(req, res, next) {
 }
 //cuando le pegan al endpoint / render index.hbs
 router.get("/", isAuth, (req, res) => {
-  let data = {
-    args: parseArgs(process.argv.slice(2)),
-    nombre: process.platform,
-    version: process.version,
-    memoria: process.memoryUsage().heapUsed.toString(),
-    path: process.execPath,
-    pId: process.pid,
-    carpeta: process.cwd(),
-  };
-  res.render("layouts\\info", {
-    layout: "info",
-    data,
+  const logica = fork("./fork/random.js");
+  let { cant } = req.query;
+
+  logica.send({ cantidad: +cant || 10000000 });
+  logica.on("message", (objeto) => {
+   
+    res.render("layouts\\randoms", {
+      layout: "randoms",
+      objeto,
+    });
   });
 });
 
